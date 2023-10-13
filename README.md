@@ -1,24 +1,5 @@
-# README
+# Cloud Orchestrator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Tired of configuring cloud resources manually on each of your projects? To setup S3, Google Drive, Dropbox...
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project is for you! It aims to provide a simple API to rule them all, you will no longer need to worry about credentials, OAuth, configuration and so on. Just make a REST API call and you're done!
