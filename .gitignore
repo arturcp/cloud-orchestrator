@@ -37,3 +37,4 @@
 /config/credentials/*.json
 .DS_Store
 /public/files
+/coverage

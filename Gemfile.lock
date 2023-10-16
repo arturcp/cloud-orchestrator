@@ -95,6 +95,7 @@ GEM
       reline (>= 0.3.1)
     declarative (0.0.20)
     diff-lcs (1.5.0)
+    docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
@@ -289,6 +290,12 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     stringio (3.0.8)
     thor (1.2.2)
     timeout (0.4.0)
@@ -321,6 +328,7 @@ DEPENDENCIES
   rspec-rails (~> 6.0.0)
   rubocop-rails
   rubocop-rspec
+  simplecov
   tzinfo-data
 
 RUBY VERSION
