@@ -5,7 +5,8 @@ class CloudinaryService < CloudService
     file_name ||= File.basename(url)
     remote_folder = options[:remote_folder].to_s
 
-    response = Cloudinary::Uploader.upload(url,
+    response = Cloudinary::Uploader.upload(
+      url,
       folder: remote_folder,
       public_id: file_name,
       display_name: file_name
@@ -18,13 +19,16 @@ class CloudinaryService < CloudService
 
   def configured?
     @errors = []
-
     api_key = get_env("CLOUDINARY_API_KEY")
     api_secret = get_env("CLOUDINARY_API_SECRET")
     project_name = get_env("CLOUDINARY_PROJECT_NAME")
 
     return false unless errors.empty?
 
+    configure_cloudinary(api_key, api_secret, project_name)
+  end
+
+  def configure_cloudinary(api_key, api_secret, project_name)
     url = "cloudinary://#{api_key}:#{api_secret}@#{project_name}"
     Cloudinary.config_from_url(url)
     Cloudinary.config do |config|

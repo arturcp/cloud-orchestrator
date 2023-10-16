@@ -1,6 +1,7 @@
 RSpec.describe CloudService, "#get_env" do
-  let(:project) { Project.new("My Project") }
   subject(:service) { described_class.new(project) }
+
+  let(:project) { Project.new("My Project") }
 
   context "when environment variable is set" do
     before do

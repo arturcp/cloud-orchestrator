@@ -1,5 +1,5 @@
 RSpec.describe GoogleDriveService, ".configure" do
-  let(:file) { double(write: nil) }
+  let(:file) { instance_double(File, write: nil) }
   let(:project_name) { "My Project" }
   let(:project) { Project.new(project_name) }
 

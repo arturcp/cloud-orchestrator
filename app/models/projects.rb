@@ -5,7 +5,7 @@ class Projects
     project_names = ENV["PROJECTS"].split(",")
 
     @projects = project_names.each_with_object({}) do |project_name, hash|
-      project_name = project_name.strip.split(" ").map(&:capitalize).join(" ")
+      project_name = project_name.strip.split.map(&:capitalize).join(" ")
       project = Project.new(project_name)
 
       next unless project.valid?

@@ -1,7 +1,8 @@
 RSpec.describe GoogleDriveService, "#upload" do
+  subject(:service) { described_class.new(project) }
+
   let(:url) { "https://some-url.com/image.jpg" }
   let(:project) { Project.new("My Project") }
-  subject(:service) { described_class.new(project) }
 
   context "when google drive is configured" do
     before do
@@ -12,10 +13,10 @@ RSpec.describe GoogleDriveService, "#upload" do
       allow_any_instance_of(Google::Apis::DriveV3::DriveService)
         .to receive(:create_file)
         .and_return({
-          "id": "1Ms__LC_bck92J63C-qjXCPKu3Wr8K784",
-          "kind": "drive#file",
-          "mime_type": "text/pdf",
-          "name": "outubro.pdf"
+          "id" => "1Ms__LC_bck92J63C-qjXCPKu3Wr8K784",
+          "kind" => "drive#file",
+          "mime_type" => "text/pdf",
+          "name" => "outubro.pdf"
         })
     end
 
@@ -26,13 +27,13 @@ RSpec.describe GoogleDriveService, "#upload" do
         folder: "",
         project: "My Project",
         response: {
-          "id"=>"1Ms__LC_bck92J63C-qjXCPKu3Wr8K784",
-          "kind"=>"drive#file",
-          "mime_type"=>"text/pdf",
-          "name"=>"outubro.pdf"
+          "id" => "1Ms__LC_bck92J63C-qjXCPKu3Wr8K784",
+          "kind" => "drive#file",
+          "mime_type" => "text/pdf",
+          "name" => "outubro.pdf"
         },
         service: "GoogleDriveService",
-        url: "",
+        url: ""
       })
     end
   end
@@ -51,7 +52,7 @@ RSpec.describe GoogleDriveService, "#upload" do
     end
 
     it "raises an error" do
-      allow(Net::HTTP).to receive(:get_response).and_return(double(code: "404"))
+      allow(Net::HTTP).to receive(:get_response).and_return(Net::HTTPNotFound.new)
 
       expect { service.upload(url: url) }
         .to raise_error("Error: Unable to fetch the file. Response code 404")

@@ -24,7 +24,7 @@ class CloudService
       project: project.name,
       folder: folder,
       url: url,
-      service: self::class.name,
+      service: self.class.name,
       response: response
     }
   end

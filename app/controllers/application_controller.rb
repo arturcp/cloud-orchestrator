@@ -10,6 +10,6 @@ class ApplicationController < ActionController::API
 
     @current_project = Projects.get_by_token(current_token)
 
-    render json: { error: "Not Authorized" }, status: 401 unless current_project
+    render json: { error: "Not Authorized" }, status: :unauthorized unless current_project
   end
 end

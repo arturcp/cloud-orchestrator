@@ -1,4 +1,6 @@
-RSpec.describe FilesController, type: :request do
+RSpec.describe FilesController, "#upload" do
+  let(:headers) { { "X-Api-Key" => "60f32233-d68f-4fd0-ab92-d57fa3d437f9" } }
+
   describe "POST /upload" do
     let(:project) { Project.new("Project") }
     let(:service) { CloudService.new(project) }
@@ -18,7 +20,7 @@ RSpec.describe FilesController, type: :request do
       end
 
       it "returns unprocessable entity" do
-        post upload_path, params: { service: "CloudService", url: url }, headers: {"X-Api-Key" => "60f32233-d68f-4fd0-ab92-d57fa3d437f9"}
+        post upload_path, params: { service: "CloudService", url: url }, headers: headers
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to eq(["some error"].to_json)
       end
@@ -36,7 +38,7 @@ RSpec.describe FilesController, type: :request do
       end
 
       it "returns success" do
-        post upload_path, params: { service: "CloudService", url: url }, headers: {"X-Api-Key" => "60f32233-d68f-4fd0-ab92-d57fa3d437f9"}
+        post upload_path, params: { service: "CloudService", url: url }, headers: headers
         expect(response).to have_http_status(:success)
         expect(response.body).to eq({
           folder: "folder",

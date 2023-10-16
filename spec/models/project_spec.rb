@@ -4,7 +4,7 @@ RSpec.describe Project do
   end
 
   it "sets the key, name, and env_vars" do
-    project = Project.new("Project")
+    project = described_class.new("Project")
 
     expect(project.key).to eq("PROJECT")
     expect(project.name).to eq("Project")
@@ -17,11 +17,11 @@ RSpec.describe Project do
 
   describe "#env" do
     it "returns a ProjectHash that access the envs without the project name prefix" do
-      project = Project.new("Project")
+      project = described_class.new("Project")
 
       expect(project.env).to be_a(ProjectHash)
-      expect(project.env["PUBLIC_KEY"] == "98765")
-      expect(project.env["SECRET_KEY"] == "12334")
+      expect(project.env["PUBLIC_KEY"]).to eq("98765")
+      expect(project.env["SECRET_KEY"]).to eq("12334")
     end
   end
 end
