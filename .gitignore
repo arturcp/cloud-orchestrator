@@ -33,3 +33,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/credentials/*.json
+.DS_Store
+/public/files
+/coverage
