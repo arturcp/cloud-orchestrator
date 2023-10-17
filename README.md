@@ -132,8 +132,6 @@ Some services require additional steps after setting the environment variables. 
 
 To make this as transparent as possible, each service has a self method named `configure`, that contains automatic instructions on how to configure the service. You don't need to worry about any of that, all you need to do is run a rake task already built in to configure all the services to all the projects you have (just remember to set the environment variables first).
 
-```
-
 To configure the services, just run the following rake task:
 
 ```
