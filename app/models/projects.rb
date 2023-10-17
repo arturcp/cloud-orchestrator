@@ -1,6 +1,9 @@
 require_relative "project"
 
 class Projects
+  # This method will load all the projects from the environment variables and
+  # keep them in memory. It is called only once, when the application starts (
+  # see config/initializers/load_projects.rb)
   def self.load
     project_names = ENV["PROJECTS"].split(",")
 

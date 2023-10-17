@@ -1,8 +1,35 @@
+# GoogleDriveService contains methods to upload files to Google Drive.
+#
+# It will be ready to be used only if all the environment variables are set.
+#
+# Environment variables:
+#
+# - GOOGLE_SERVICE_ACCOUNT_PROJECT_ID
+# - GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_ID
+# - GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+# - GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL
+# - GOOGLE_SERVICE_ACCOUNT_CLIENT_ID
+# - GOOGLE_SERVICE_ACCOUNT_CERT_URL
+# - GOOGLE_SERVICE_REMOTE_FOLDER_ID
+#
+# You can find the values for these variables in the Google Cloud dashboard:
+# https://console.cloud.google.com/. For more details on how to get these values,
+# check the README of this project.
 class GoogleDriveService < CloudService
   API_SCOPE = "https://www.googleapis.com/auth/drive".freeze
 
   attr_reader :credentials_file, :credentials_file_path
 
+  # Google Drive overrides the `self.configure` method from the CloudService
+  # to create a credentials file. This file is used by the service to
+  # authenticate with Google Drive. It will be located at `config/credentials`,
+  # which is already on the .gitignore file, to prevent your credentials from
+  # accidentally going to your code base.
+  #
+  # The configuration rake is run with:
+  #
+  # `bin/rake cloud_orchestrator:configure_services`
+  #
   # rubocop:disable Metrics/AbcSize
   def self.configure(project)
     credentials = {
@@ -35,6 +62,40 @@ class GoogleDriveService < CloudService
     @credentials_file = File.open(credentials_file_path)
   end
 
+  # Upload a file to Google Drive. It will return a hash with the following
+  # information:
+  #
+  # - project: The name of the project
+  # - folder: The folder where the file was uploaded
+  # - url: The url of the file
+  # - service: The name of the service
+  # - response: The response from the service
+  #
+  # If the service is not configured, it will return nil.
+  #
+  # @param url [String] The url of the file to upload
+  # @param file_name [String] The name of the file.
+  # @param options [Hash] Additional options
+  #
+  # For now, all options are ignored by this service.
+  #
+  # Google Drive API does not allow us to upload files directly from a URL, so
+  # it will first download the file into the `public/files` folder (which is
+  # already on the .gitignore), and only then upload the file to the cloud.
+  #
+  # @return [Hash, nil] The response from the service or nil if the service is
+  #   not configured.
+  #
+  # @example Upload a file to Google Drive
+  #   google_drive_service = GoogleDriveService.new(project)
+  #   google_drive_service.upload(url: "https://example.com/image.jpg")
+  #
+  # @example Upload a file with a different name to Google Drive
+  #   google_drive_service = GoogleDriveService.new(project)
+  #   google_drive_service.upload(
+  #     url: "https://example.com/image.jpg",
+  #     file_name: "my-file.jpg"
+  #   )
   # rubocop:disable Lint/UnusedMethodArgument
   def upload(url:, file_name: nil, options: {})
     return unless configured?
