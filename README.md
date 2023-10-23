@@ -138,6 +138,14 @@ To configure the services, just run the following rake task:
 bin/rake cloud_orchestrator:configure_services
 ```
 
+When on dokku, you may need to enter on the dokku container before running the rake:
+
+```
+dokku enter cloud-orchestrator
+```
+
+If the credentials folder is not being created, you can create it manually too. Make sure you also create a folder named `files` inside /public as well.
+
 # Dependencies
 
 * Google Drive API gem: https://github.com/googleapis/google-api-ruby-client#simple-rest-clients-for-google-apis
