@@ -57,8 +57,12 @@ class GoogleDriveService < CloudService
 
     credentials_file_path = "#{credentials_path}/#{project.key.downcase}_google_service_account.json"
 
+    # Remove double slashes that are being generated when a \n is present in the keys
+    credentials_json = JSON.pretty_generate(credentials)
+    credentials_json.gsub!("\\n", "\n")
+
     File.open(credentials_file_path, "w") do |file|
-      file.write(JSON.pretty_generate(credentials))
+      file.write(credentials_json)
     end
 
     credentials_file_path
