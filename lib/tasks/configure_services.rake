@@ -10,7 +10,9 @@ namespace :cloud_orchestrator do
       log "Configuring #{service_name} for..."
       Projects.list.each do |project|
         log "  * #{project.name}"
-        service.configure(project)
+        result = service.configure(project)
+
+        log "(#{result})" if result
       end
 
       log ""

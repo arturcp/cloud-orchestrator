@@ -55,9 +55,13 @@ class GoogleDriveService < CloudService
       FileUtils.mkdir_p(credentials_path)
     end
 
-    File.open("#{credentials_path}/#{project.key.downcase}_google_service_account.json", "w") do |file|
+    credentials_file_path = "#{credentials_path}/#{project.key.downcase}_google_service_account.json"
+
+    File.open(credentials_file_path, "w") do |file|
       file.write(JSON.pretty_generate(credentials))
     end
+
+    credentials_file_path
   end
   # rubocop:enable Metrics/AbcSize
 
