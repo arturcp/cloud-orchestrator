@@ -48,12 +48,14 @@ class GoogleDriveService < CloudService
       universe_domain: "googleapis.com"
     }
 
-    path = "config/credentials"
+    credentials_path = Rails.root.join("config/credentials")
 
     # Create the directory if it doesn't exist
-    FileUtils.mkdir_p(File.dirname(path))
+    unless File.directory?(credentials_path)
+      FileUtils.mkdir_p(credentials_path)
+    end
 
-    File.open("#{path}/#{project.key.downcase}_google_service_account.json", "w") do |file|
+    File.open("#{credentials_path}/#{project.key.downcase}_google_service_account.json", "w") do |file|
       file.write(JSON.pretty_generate(credentials))
     end
   end
@@ -151,7 +153,9 @@ class GoogleDriveService < CloudService
     full_path = File.join(save_path, file_name)
 
     # Create the directory if it doesn't exist
-    FileUtils.mkdir_p(File.dirname(save_path))
+    unless File.directory?(save_path)
+      FileUtils.mkdir_p(save_path)
+    end
 
     File.open(full_path, "wb") { |file| file.write(response.body) }
 
