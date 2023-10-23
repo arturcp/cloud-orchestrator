@@ -1,3 +1,5 @@
+require "fileutils"
+
 # GoogleDriveService contains methods to upload files to Google Drive.
 #
 # It will be ready to be used only if all the environment variables are set.
@@ -46,7 +48,12 @@ class GoogleDriveService < CloudService
       universe_domain: "googleapis.com"
     }
 
-    File.open("config/credentials/#{project.key.downcase}_google_service_account.json", "w") do |file|
+    path = "config/credentials"
+
+    # Create the directory if it doesn't exist
+    FileUtils.mkdir_p(File.dirname(path))
+
+    File.open("#{path}/#{project.key.downcase}_google_service_account.json", "w") do |file|
       file.write(JSON.pretty_generate(credentials))
     end
   end
@@ -142,6 +149,10 @@ class GoogleDriveService < CloudService
 
     file_name = extract_file_name_from_url(url, save_path)
     full_path = File.join(save_path, file_name)
+
+    # Create the directory if it doesn't exist
+    FileUtils.mkdir_p(File.dirname(save_path))
+
     File.open(full_path, "wb") { |file| file.write(response.body) }
 
     full_path
