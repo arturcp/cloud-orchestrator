@@ -50,16 +50,15 @@ class GoogleDriveService < CloudService
 
     credentials_path = Rails.root.join("config/credentials")
 
-    # Create the directory if it doesn't exist
     unless File.directory?(credentials_path)
       FileUtils.mkdir_p(credentials_path)
     end
 
     credentials_file_path = "#{credentials_path}/#{project.key.downcase}_google_service_account.json"
-
-    # Remove double slashes that are being generated when a \n is present in the keys
-    credentials_json = JSON.pretty_generate(credentials)
-    credentials_json.gsub!("\\n", "\n")
+    credentials_json = credentials.map do |key, value|
+      "  \"#{key}\": \"#{value.gsub("\n", "\\n")}\""
+    end.join(",\n")
+    credentials_json = "{\n#{credentials_json}\n}"
 
     File.open(credentials_file_path, "w") do |file|
       file.write(credentials_json)

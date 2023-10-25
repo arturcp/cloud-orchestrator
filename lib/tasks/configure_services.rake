@@ -11,8 +11,6 @@ namespace :cloud_orchestrator do
       Projects.list.each do |project|
         log "  * #{project.name}"
         result = service.configure(project)
-
-        log "(#{result})" if result
       end
 
       log ""
