@@ -21,7 +21,7 @@ RSpec.describe FilesController, "#upload" do
 
       it "returns unprocessable entity" do
         post upload_path, params: { service: "CloudService", url: url }, headers: headers
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(422)
         expect(response.body).to eq(["some error"].to_json)
       end
     end
