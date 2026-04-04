@@ -10,9 +10,8 @@ Each service will have its step instructions to configure it, but fear not: we a
 
 This project is built for:
 
-* Ruby 3.2.2
-* Rails 7.1.1
-
+- Ruby 3.2.2
+- Rails 7.1.1
 
 # Getting started
 
@@ -33,7 +32,6 @@ This file contains all the environment variables you need to configure the servi
 ## PROJECTS environment variable
 
 This is a comma-separated string with all the projects that use the Cloud Orchestrator. For example, if you have two projects, `Policies Service` and `Billing Service`, you need to set this variable to:
-
 
 ```
 PROJECTS=Policies Service,Billing Service
@@ -77,7 +75,6 @@ BILLING_SERVICE_CLOUDINARY_PROJECT_NAME=some-other-cloudinary-project-name
 
 Each service has its own configuration variables, you can find more information about each service in the sections below. Just remember to prefix them with the name of the project that will use them (use the project name, with underscores instead of spaces, and uppercase all letters).
 
-
 # Google Drive
 
 To configure Google Drive credentials, you need to follow these steps:
@@ -89,7 +86,6 @@ To configure Google Drive credentials, you need to follow these steps:
    a) https://www.youtube.com/watch?v=asrCdWFrF0A
    b) https://alvinrapada.medium.com/getting-google-drive-images-google-drive-api-with-elixir-bbb662dfdee0
 5. Share the folder on your Google Drive with the email account created in the previous step.
-
 
 Step 5 is important: when you create a service account, it has its own Google Drive space. When uploading files using the credentials, the files will be uploaded to this account's Google Drive, and you have no way to access them using any web interface. To make the files available to your own account, you need to share a folder from your personal Google Drive with the email account created in step 4.
 
@@ -108,7 +104,6 @@ To configure your project to use Google Drive, you will need to set these enviro
 Once you create your service account credentials, download the file. You will find the information you need to set these variables on the JSON file you have just downloaded.
 
 Replace `<PROJECT_NAME>` with the name of your project set on the `PROJECTS` environment variable. It needs to have underscores instead of spaces and have all letters in uppercase.
-
 
 # Cloudinary
 
@@ -138,15 +133,9 @@ To configure the services, just run the following rake task:
 bin/rake cloud_orchestrator:configure_services
 ```
 
-When on dokku, you may need to enter on the dokku container before running the rake:
-
-```
-dokku enter cloud-orchestrator
-```
-
 If the credentials folder is not being created, you can create it manually too. Make sure you also create a folder named `files` inside /public as well.
 
 # Dependencies
 
-* Google Drive API gem: https://github.com/googleapis/google-api-ruby-client#simple-rest-clients-for-google-apis
-* Google Auth gem: https://github.com/googleapis/google-auth-library-ruby
+- Google Drive API gem: https://github.com/googleapis/google-api-ruby-client#simple-rest-clients-for-google-apis
+- Google Auth gem: https://github.com/googleapis/google-auth-library-ruby
